@@ -1,3 +1,4 @@
+{% set python_min = '3.10' %}
 {% set name = "hicsv-python" %}
 {% set version = "1.0.1" %}
 
@@ -6,21 +7,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/hicsv-python-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/hicsv-python-{{ version }}.tar.gz
   sha256: da63fcfc10e5255d2cb6860fe3f71dc68eb39c70a1135ae97b0a05efdd5a79af
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.10
+    - python {{ python_min }}
   run:
     - numpy >=1.23
-    - python >=3.10
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -29,6 +30,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/shntrnkgw/hicsv
